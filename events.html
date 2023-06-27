@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Eager Beavers Club</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <meta property="og:title" content="">
+    <meta property="og:image" content="">
+    <meta property="og:url" content="">
+    <meta property="og:site_name" content="">
+    <meta property="og:description" content="">
+
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="">
+    <meta name="twitter:title" content="">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:image" content="">
+
+    <!-- Place your favicon.ico and apple-touch-icon.png in the template root directory -->
+    <link href="./img/favicon.png" rel="icon">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Raleway:300,400,500,700,800"
+        rel="stylesheet">
+
+
+    <!-- Bootstrap CSS File -->
+    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Libraries CSS Files -->
+    <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="lib/animate-css/animate.min.css" rel="stylesheet">
+
+    <!-- Main Stylesheet File -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <script>
+var divcount=1;
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          
+          var main=JSON.parse(this.responseText);
+          //console.log(this.responseText);
+          
+          var maindiv=document.getElementById("create");
+          var hide=document.createElement("div");
+          hide.setAttribute("id","hide");
+          maindiv.appendChild(hide);
+          var row=document.createElement("div");
+          row.setAttribute("class","row");
+          var count=0;
+          var one=document.createElement("div");
+          one.setAttribute("id","1");
+          
+          for(var i=0;i<main.length;i++){
+            if(count==6){
+              row.appendChild(one);
+              one=document.createElement("div");
+              divcount+=1;
+              one.setAttribute("id",divcount.toString());
+              one.setAttribute("style","display:none");
+              count=0;
+            }
+             var col=document.createElement("div");
+             col.setAttribute("class","col-md-4 service-item");
+             col.setAttribute("style","cursor: pointer");
+             var k="event"+ (i+1).toString();
+             col.setAttribute("id",k);
+             var icon=document.createElement("div");
+             icon.setAttribute("class","service-icon");
+             var iele =document.createElement("i");
+             var faicon=main[i].faicon;
+             iele.setAttribute("class",faicon);
+             icon.appendChild(iele);
+             col.appendChild(icon);
+             var h4=document.createElement("h4");
+             h4.setAttribute("class","service-title");
+             h4.innerHTML=main[i].Name;
+             col.appendChild(h4);
+             var para = document.createElement("P");
+             para.setAttribute("class","service-description");
+             para.innerText = main[i].s_details;
+             col.appendChild(para);
+             one.appendChild(col);
+             count+=1;
+  
+          }
+          row.appendChild(one);
+          hide.appendChild(row);
+          for(var i=0;i<main.length;i++){
+              var block=document.createElement("div");
+              var o="myblock"+(1+i).toString();
+              block.setAttribute("id",o);
+              block.setAttribute("style","display: none;");
+              var carousel=document.createElement("div");
+              carousel.setAttribute("class","carousel slide");
+              var l="myCarousel"+(i+1).toString();
+              carousel.setAttribute("id",l);
+              carousel.setAttribute("data-ride","carousel");
+              var row1=document.createElement("div");
+              row1.setAttribute("class","row");
+              var col1=document.createElement("div");
+              col1.setAttribute("class","col-md-6");
+              var title=document.createElement("div");
+              title.setAttribute("class","service-title");
+              var backbutton=document.createElement("a");
+              var t="backbt"+(i+1).toString();
+              backbutton.setAttribute("id",t);
+              backbutton.setAttribute("style","cursor: pointer");
+              var iconbt=document.createElement("i");
+              iconbt.setAttribute("class","fa fa-arrow-left");
+              iconbt.setAttribute("style","font-size:15px");
+              backbutton.appendChild(iconbt);
+              title.appendChild(backbutton);
+              var h4title=document.createElement("h4");
+              h4title.setAttribute("class","service-title");
+              h4title.innerHTML=main[i].Name; 
+              var para1=document.createElement("p");
+              para1.setAttribute("class","service-description");
+              para1.innerHTML=main[i].f_details;
+              col1.appendChild(title);
+              col1.appendChild(h4title);
+              col1.appendChild(para1);
+              var para2=document.createElement("h4");
+              para2.setAttribute("class","service-description");
+              para2.setAttribute("style","font-weight:bold;");
+              para2.innerHTML="Coordinators";
+              col1.appendChild(para2);
+              var cor=JSON.parse(main[i].coordinators);
+              var highest = cor[ Object.keys(cor).sort().pop() ];
+              var para3=document.createElement("p");
+               para3.setAttribute("class","service-description");
+              
+              var names="";
+              for (var key in cor){
+             if(cor[key]==highest){
+              names+=cor[key]+" ";
+             }
+             else{
+             names+=cor[key]+", ";
+             }
+            
+            }
+              names=names.replaceAll(", $","");
+              para3.innerHTML=names; 
+              col1.appendChild(para3);
+              row1.appendChild(col1);
+              var col2=document.createElement("div");
+              col2.setAttribute("class","col-md-6");
+              var cour=document.createElement("div");
+              cour.setAttribute("class","carousel-inner");
+              var item =document.createElement("div");
+              item.setAttribute("class","item active");
+              var img1=document.createElement("img");
+              var path="./img/"+main[i].img_folder+"/1."+main[i].img_type;
+              img1.setAttribute("src",path);
+              img1.setAttribute("alt",main[i].Name);
+              img1.setAttribute("style","width:100%; height: 50%;");
+              item.appendChild(img1);
+              cour.appendChild(item);
+              for(var j=2;j<=parseInt(main[i].total_image);j++){
+                var item1 =document.createElement("div");
+              item1.setAttribute("class","item");
+              var img2=document.createElement("img");
+              var path1="./img/"+main[i].img_folder+"/"+j.toString()+"."+main[i].img_type;
+              img2.setAttribute("src",path1);
+              img2.setAttribute("alt",main[i].Name);
+              img2.setAttribute("style","width:100%; height: 50%;");
+              item1.appendChild(img2);
+              cour.appendChild(item1);
+              }
+              var ol=document.createElement("ol");
+              ol.setAttribute("class","carousel-indicators");
+              for(var q=1;q<=parseInt(main[i].total_image);q++){
+                if(q==1){
+                  var li=document.createElement("li");
+                  li.setAttribute("data-target","#"+l);
+                  li.setAttribute("data-slide-to",(q-1).toString());
+                  li.setAttribute("class","active");
+                  ol.appendChild(li);
+                }
+                else{
+                  var li=document.createElement("li");
+                  li.setAttribute("data-target","#"+l);
+                  li.setAttribute("data-slide-to",(q-1).toString());
+                  ol.appendChild(li);
+                }
+              }
+              cour.appendChild(ol);
+              var anch=document.createElement("a");
+              anch.setAttribute("class","left carousel-control");
+              anch.setAttribute("role","button");
+              anch.setAttribute("data-slide","prev");
+              var hk1="$('#"+l+"').carousel('prev')";
+              anch.setAttribute("onclick",hk1);
+              var span1=document.createElement("span");
+              span1.setAttribute("class","glyphicon glyphicon-chevron-left");
+              span1.setAttribute("aria-hidden","true");
+              anch.appendChild(span1);
+              var span2=document.createElement("span");
+              span2.setAttribute("class","sr-only");
+              span2.innerHTML="Previous";
+              anch.appendChild(span2);
+              cour.appendChild(anch);
+  
+              var anch1=document.createElement("a");
+              anch1.setAttribute("class","right carousel-control");
+              anch1.setAttribute("role","button");
+              anch1.setAttribute("data-slide","next");
+              var hk="$('#"+l+"').carousel('next')";
+              anch1.setAttribute("onclick",hk);
+              var span11=document.createElement("span");
+              span11.setAttribute("class","glyphicon glyphicon-chevron-right");
+              span11.setAttribute("aria-hidden","true");
+              anch1.appendChild(span11);
+              var span21=document.createElement("span");
+              span21.setAttribute("class","sr-only");
+              span21.innerHTML="Next";
+              anch1.appendChild(span21);
+              cour.appendChild(anch1);
+              col2.appendChild(cour);
+              row1.appendChild(col2); 
+              carousel.appendChild(row1);
+              block.appendChild(carousel);
+              maindiv.appendChild(block);
+  
+          }
+          var navdiv =document.createElement("div");
+          navdiv.setAttribute("id","navdiv");
+          var nav=document.createElement("nav");
+          nav.setAttribute("class","nav justify-content-center");
+          var txtc=document.createElement("div");
+          txtc.setAttribute("class","text-center");
+          txtc.setAttribute("id","pages");
+          var page=document.createElement("ul");
+          page.setAttribute("class","pagination justify-content-center");
+          for(var e=0;e<divcount;e++){
+            var list=document.createElement("li");
+            list.setAttribute("class","page-item");
+            var anchor=document.createElement("a");
+            anchor.setAttribute("class","page-link");
+            anchor.setAttribute("id",(e+1).toString());
+            anchor.setAttribute("href","#");
+            anchor.innerHTML=(e+1).toString();
+            list.appendChild(anchor);
+            page.appendChild(list);
+          }
+          txtc.appendChild(page);
+          nav.appendChild(txtc);
+          navdiv.appendChild(nav);
+          maindiv.appendChild(navdiv);  
+              
+  
+        }
+      };
+      xmlhttp.open("POST","fetch.php",true);
+      xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xmlhttp.send("q=0");
+   
+  </script>
+  <script>
+    $(document).ready(function () {
+         
+      $(document).delegate("div","click", function () {
+        if($(this).attr('id')!=undefined){
+       var clickedBtnID = $(this).attr('id').toString(); 
+       
+       if(clickedBtnID.match(/event/g)=="event"){
+        var inid=clickedBtnID.replace("event","myblock");
+       
+        $("#hide").fadeOut(100);
+        $('#navdiv').fadeOut(100);
+        $("#"+inid).fadeIn(500);
+       }
+        }
+    
+      });
+     
+      $(document).delegate("a","click",function(){
+        var clickedBtnID = $(this).attr('id').toString(); 
+        if(clickedBtnID.match(/backbt/g)=="backbt"){
+         
+        var inid=clickedBtnID.replace("backbt","myblock");
+         
+        $("#"+inid).fadeOut(100);
+        $("#hide").fadeIn(500);
+        $('#navdiv').fadeIn(500);
+       }
+      else if(clickedBtnID.match(/[0-9]/g)){
+        for(var t=1;t<=divcount;t++){
+          if(t==parseInt(clickedBtnID)){
+            var showdiv=document.getElementById(clickedBtnID);
+            showdiv.setAttribute("style","display:block;");
+          }
+          else{
+            var showdiv=document.getElementById(t.toString());
+            showdiv.setAttribute("style","display:none;");
+          }
+        }
+       }
+      
+      });
+
+     
+    
+    });
+
+  </script>
+    <style>
+        .carousel .item {
+            height: 300px;
+        }
+
+        .item img {
+            position: absolute;
+            object-fit: cover;
+            top: 0;
+            left: 0;
+            min-height: 300px;
+        }
+
+        html,
+        body,
+        section {
+            height: 100%;
+        }
+    </style>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EEK2QMEL41"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-EEK2QMEL41');
+    </script>
+</head>
+
+<body>
+   
+
+    <header id="header">
+        <div class="container">
+
+            <div id="logo" class="pull-left">
+                <a href="#services"><img src="img/c.jpg" alt="" title="" /></img></a>
+                <!-- Uncomment below if you prefer to use a text image -->
+                <!--<h1><a href="#hero">Header 1</a></h1>-->
+            </div>
+
+            <nav id="nav-menu-container">
+                <ul class="nav-menu">
+                    <li class="menu-active"><a href="#services" class="1" style="font-weight: bold;">Events</a></li>
+
+                    <li><a href="./index.html" class="3" style="font-weight: bold;">Go Back</a></li>
+
+                </ul>
+            </nav>
+            <!-- #nav-menu-container -->
+        </div>
+    </header>
+    
+    <div class="container about-container wow fadeInUp">
+        <div class="row">
+
+            <div class="col-lg-6 about-img">
+                <!--<img src="img/about-img.jpg" alt="">-->
+            </div>
+
+            <div class="col-md-6 about-content">
+
+            </div>
+        </div>
+    </div>
+    </section>
+
+    <!--==========================
+  Services Section
+  ============================-->
+    <section id="services">
+        <div class="container wow fadeInUp">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="section-title">Events</h3>
+
+                    <div class="section-title-divider">
+
+                    </div>
+
+
+                    <p class="section-description">
+
+                    </p>
+                </div>
+            </div>
+
+            <div id="create">
+          
+            </div>
+            
+    </section>
+
+
+    <!--========================== 
+  <section id="team">
+    <div class="container wow fadeInUp">
+      <div class="row">
+        <div class="col-md-12">
+          <h3 class="section-title">Lead By</h3>
+          <div class="section-title-divider"></div>
+          <p class="section-description"></p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="member">
+            <div class="pic"><img src="./img/pds.jpeg" style="border-radius: 50%;" height="255px" width="255px" alt="">
+            </div>
+            <h4>Dr Parth Shah</h4>
+            <span>Head Of the Department</span>
+            <span>KDPDIT, CHARUSAT</span>
+            <div class="social">
+
+              <a href="https://www.linkedin.com/in/dr-parth-shah-ba7ba842"><i class="fa fa-linkedin"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="member">
+
+            <div class="pic"><img src="./img/amit_sir_img.jpg" style="border-radius: 50%;" height="255px" width="255px"
+                alt=""></div>
+            <h4>Amit Parmar</h4>
+            <span>Assistant Professor</span>
+            <span>KDPDIT, CHARUSAT<span>
+                <div class="social">
+
+                  <a href="https://www.linkedin.com/in/amit-parmar-70b540aa/"><i class="fa fa-linkedin"></i></a>
+                </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+    <br>
+    <br>
+    <div class="container wow fadeInUp">
+      <div class="row">
+        <div class="col-md-12">
+          <h3 class="section-title">Team</h3>
+          <div class="section-title-divider"></div>
+          <p class="section-description"></p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <div class="member">
+            <div class="pic"><img src="./img/vishal.jpg" style="border-radius: 50%;" height="255px" width="255px"
+                alt=""></div>
+            <h4>Vishal Ahuja</h4>
+            <span>Core Team</span>
+            <div class="social">
+
+              <a href="https://www.linkedin.com/in/vishal-ahuja-17179116a-17it004/"><i class="fa fa-linkedin"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="member">
+            <div class="pic"><img src="./img/shalvi_im.jpg" style="border-radius: 50%;" height="255px" width="255px" alt=""></div>
+            <h4>Shalvi Desai</h4>
+            <span>Core Team</span>
+            <div class="social">
+
+              <a href="http://linkedin.com/in/shalvi-desai-ab7b03171"><i class="fa fa-linkedin"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="member">
+            <div class="pic"><img src="./img/vasu.jpg" style="border-radius: 50%;" height="255px" width="255px" alt="">
+            </div>
+            <h4>Vasu Gamdha</h4>
+            <span>Core Team</span>
+            <div class="social">
+
+              <a href="https://www.linkedin.com/in/vasugamdha"><i class="fa fa-linkedin"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="member">
+            <div class="pic"><img src="./img/vedanshu.JPG" style="border-radius: 50%;" height="255px" width="255px"
+                alt=""></div>
+            <h4>Vedanshu Joshi</h4>
+            <span>Core Team</span>
+            <div class="social">
+
+              <a href="https://www.linkedin.com/in/vedanshu-joshi-549b67ba/"><i class="fa fa-linkedin"></i></a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  
+  Contact Section
+ 
+  <section id="contact">
+    <div class="container wow fadeInUp">
+      <div class="row">
+        <div class="col-md-12">
+          <h3 class="section-title">Contact Us</h3>
+          <div class="section-title-divider"></div>
+          <p class="section-description"></p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3 col-md-push-2">
+          <div class="info">
+            <a href="https://goo.gl/maps/JdNwwPZwzSVVaCFdA"><div >
+              <i class="fa fa-map-marker"></i>
+              <p>Smt. Kundanben Dinsha Patel<br>
+                Department of Information Technology
+                <br>
+                CSPIT CHARUSAT<br>GJ SH 139<br>Anand, Gujarat 388421</p>
+            </div></a>
+
+            <div>
+              <i class="fa fa-envelope"></i>
+              <p><a href="mailto:eagerbeavers.club@charusat.edu.in">eagerbeavers.club@charusat.edu.in</a></p>
+            </div>
+            <div>
+              <i class="fa fa-instagram"></i>
+              <p><a href="https://www.instagram.com/eagerbeavers.club/">eagerbeavers.club</a></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-5 col-md-push-2">
+          <div class="form">
+            <div id="sendmessage">Your message has been sent. Thank you!</div>
+            <div id="errormessage"></div>
+            <form action="" method="post" role="form" class="contactForm">
+              <div class="form-group">
+                <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="name"
+                  data-msg="Please enter only Alphabet and lenght must be 4 chars long" />
+                <div class="validation"></div>
+              </div>
+              <div class="form-group">
+                <input type="email" class="form-control" name="email" id="email" placeholder="Your Email"
+                  data-rule="email" data-msg="Please enter a valid email" />
+                <div class="validation"></div>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject"
+                  data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+                <div class="validation"></div>
+              </div>
+              <div class="form-group">
+                <textarea class="form-control" name="message" rows="5" data-rule="required"
+                  data-msg="Please write something for us" placeholder="Message"></textarea>
+                <div class="validation"></div>
+              </div>
+              <div class="text-center"><button type="submit">Send Message</button></div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+   ============================-->
+
+
+    <footer id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="copyright">
+                        &copy; Copyright <strong>Eager Beavers Club</strong>. All Rights Reserved
+                    </div>
+                    <div class="credits">
+
+                        Designed by <a href="https://eagerbeavers.charusat.ac.in">Eager Beavers Club</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+
+    <!-- Required JavaScript Libraries -->
+    <script src="lib/jquery/jquery.min.js"></script>
+
+    <script src="lib/superfish/hoverIntent.js"></script>
+    <script src="lib/superfish/superfish.min.js"></script>
+    <script src="lib/morphext/morphext.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/stickyjs/sticky.js"></script>
+    <script src="lib/easing/easing.js"></script>
+
+    <!-- Template Specisifc Custom Javascript File -->
+    <script src="js/nav.js"></script>
+    <script src="js/custom.js"></script>
+    <script src="js/event.js"></script>
+    <script src="contactform/contactform.js"></script>
+
+
+    <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
